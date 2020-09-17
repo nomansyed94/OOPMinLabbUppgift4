@@ -7,12 +7,12 @@ namespace OOPMinLabbUppgift4
 {
     public class Library
     {
-        private List<Library> Books { get; set; }
+        private List<Book> Books { get; set; }
 
 
         public Library()
         {
-            Books = new List<Library>();
+            Books = new List<Book>();
         }
 
         public void RunLibraryProgram()
@@ -26,8 +26,8 @@ namespace OOPMinLabbUppgift4
                 }
                 else if (sel == 2)
                 {
-                    Console.WriteLine("not implemented yet.");
-                    //BorrowBook();
+                    //Console.WriteLine("not implemented yet.");
+                    BorrowBook();
                 }
                 else if (sel == 3)
                 {
@@ -68,6 +68,26 @@ namespace OOPMinLabbUppgift4
             }
         }
 
+        public Book FindBook(string name)
+        {
+            foreach (var book in Books)
+                if (book.Title == name)
+                {
+                    return book;
+                }
+            return null;
+        }
+
+        //public Book GetCountInLibrary(int antalExInne)
+        //{
+            
+        //}
+
+        //public Book GetBorrowedCount(int antalExUte)
+        //{
+
+        //}
+
         public void AddBookToLibrary()
         {
 
@@ -76,36 +96,36 @@ namespace OOPMinLabbUppgift4
             Console.WriteLine("Skriv in hur många du vill lägga till.");
             var numberOfBooks = Convert.ToInt32(Console.ReadLine());
 
-            var newLineToBooksInLibrary = newBook + ":antal i lager," + numberOfBooks;
-
-            string[] allLibBooks = File.ReadAllLines("c:\\Users\\Noman\\source\\repos\\C# kurs Nackademin\\OOPMinLabbUppgift4\\OOPMinLabbUppgift4\\ListOfBooksInLibrary.txt");
-
-
-            using (StreamWriter addToBookList = File.AppendText("c:\\Users\\Noman\\source\\repos\\C# kurs Nackademin\\OOPMinLabbUppgift4\\OOPMinLabbUppgift4\\ListOfBooksInLibrary.txt"))
+            Book find = FindBook(newBook);
+            if (find == null)
             {
-                foreach (var books in allLibBooks)
-                {
-                    var bookTitle = books.Split(':')[0];
-                    var bookNumber = books.Split(',')[1];
-                    if (newBook == bookTitle)
-                    {
-                        numberOfBooks += Convert.ToInt32(bookNumber);
-                    }
-                }
-                addToBookList.WriteLine(newLineToBooksInLibrary);
+                find = new Book();
+                find.Title = newBook;
+                find.Antal = numberOfBooks;
+                Books.Add(find);
             }
+            else
+            {
+                var booksInLib = find.Antal += numberOfBooks;
+                Console.WriteLine($"Det finns nu {booksInLib}st {find.Title} i biblioteket");
+            }
+
         }
 
         public void BorrowBook()
         {
-            string[] allLibBooks = File.ReadAllLines("c:\\Users\\Noman\\source\\repos\\C# kurs Nackademin\\OOPMinLabbUppgift4\\OOPMinLabbUppgift4\\ListOfBooksInLibrary.txt");
-
             Console.WriteLine("Skriv in boken du vill låna.");
             var borrowedBook = Console.ReadLine();
-            //if (Books.Contains(borrowedBook))
-            //{
-                
-            //}
+            Book borrowBook = FindBook(borrowedBook);
+            if (borrowBook != null)
+            {
+                Console.WriteLine($"du har lånat {borrowBook.Title}");
+
+            }
+            else
+            {
+                Console.WriteLine("Boken finns inte");
+            }
         }
 
         public void ReturnBook()

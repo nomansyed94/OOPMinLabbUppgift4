@@ -1,4 +1,0 @@
-﻿Harry Potter:antal i lager,1
-Sagan Om Ringen:antal i lager,1
-Harry Potter:antal i lager,2
-Sagan Om Ringen:antal i lager,2

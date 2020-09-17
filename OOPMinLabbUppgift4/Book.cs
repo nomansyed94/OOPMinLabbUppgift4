@@ -4,8 +4,14 @@ using System.Text;
 
 namespace OOPMinLabbUppgift4
 {
-    class Book
+    public class Book
     {
+        public string Title { get; set; }
 
+        public int Antal { get; set; }
+
+        public int TotalCount { get; set; }
+
+        public int BorrowedCount { get; set; }
     }
 }
